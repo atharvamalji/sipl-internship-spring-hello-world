@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class Controller {
     
     // hello world api basepoint
-    @GetMapping()
+    @GetMapping("/hello")
     public ResponseEntity<String> helloWorld() {
         ResponseEntity<String> response = new ResponseEntity<String>("Hello World! Atharva Malji here.", null, HttpStatus.OK);
         return response;

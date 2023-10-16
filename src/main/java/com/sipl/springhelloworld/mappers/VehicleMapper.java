@@ -7,8 +7,6 @@ import com.sipl.springhelloworld.entities.Vehicle;
 
 public interface VehicleMapper {
     Vehicle mapVehicleDtoToVehicle(VehicleDto vehicleDto);
-
     VehicleDto mapVehicleToVehicleDto(Vehicle vehicle);
-
     List<VehicleDto> maplistVehicleTolistVehicleDto(List<Vehicle> vehicleList);
 }

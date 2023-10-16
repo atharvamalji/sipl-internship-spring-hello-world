@@ -1,11 +1,10 @@
 package com.sipl.springhelloworld.controllers;
 
-import java.util.List;
 import org.springframework.http.ResponseEntity;
-import com.sipl.springhelloworld.dtos.VehicleDto;
+import com.sipl.springhelloworld.responses.VehicleApiResponse;
 
 public interface VehicleController {
-    ResponseEntity<List<VehicleDto>> getAllVehicles();
+    ResponseEntity<VehicleApiResponse> getAllVehicles();
 
     // ResponseEntity<Item> getItemById(Long id);
 

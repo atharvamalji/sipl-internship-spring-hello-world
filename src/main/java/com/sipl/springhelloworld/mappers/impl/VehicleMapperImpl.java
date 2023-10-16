@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+
 import com.sipl.springhelloworld.dtos.VehicleDto;
 import com.sipl.springhelloworld.entities.Vehicle;
 import com.sipl.springhelloworld.mappers.VehicleMapper;
 
-@Mapper()
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public class VehicleMapperImpl implements VehicleMapper {
     public Vehicle mapVehicleDtoToVehicle(VehicleDto vehicleDto) {
         if (vehicleDto == null) {

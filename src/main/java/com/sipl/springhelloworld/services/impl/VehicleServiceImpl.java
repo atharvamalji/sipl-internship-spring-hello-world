@@ -2,14 +2,10 @@ package com.sipl.springhelloworld.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.json.JSONObject;
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,6 +17,9 @@ import com.sipl.springhelloworld.repositories.VehicleRepository;
 import com.sipl.springhelloworld.responses.VehicleApiResponse;
 import com.sipl.springhelloworld.services.VehicleService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class VehicleServiceImpl implements VehicleService {
 
@@ -31,6 +30,7 @@ public class VehicleServiceImpl implements VehicleService {
     private VehicleMapperImpl vehicleMapper;
 
     public VehicleApiResponse createNewVehicle(VehicleDto vehicleDto) {
+    	log.info("Inside createNewVehicle()");
         VehicleApiResponse response = new VehicleApiResponse();
 
         Optional<Vehicle> vehicleExists = vehicleRepository
@@ -72,6 +72,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public VehicleApiResponse updateVehicle(VehicleDto vehicleDto) {
+    	log.info("Inside updateVehicle()");
         VehicleApiResponse response = new VehicleApiResponse();
 
         Vehicle updatedVehicle = vehicleMapper.mapVehicleDtoToVehicle(vehicleDto);
@@ -110,6 +111,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public VehicleApiResponse deleteVehicle(Long vehicleId) {
+    	log.info("Inside deleteVehicle()");
         Optional<Vehicle> vehicleInstance = vehicleRepository.findById(vehicleId);
         VehicleApiResponse response = new VehicleApiResponse();
 
@@ -127,6 +129,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     public VehicleApiResponse getAllVehicles() {
+    	log.info("Inside getAllVehicles()");
         VehicleApiResponse response = new VehicleApiResponse();
 
         try {
@@ -153,38 +156,38 @@ public class VehicleServiceImpl implements VehicleService {
         }
     }
 
-    public List<VehicleDto> getVehicleByRegistrationNumber(String vehicleRegistrationNumber) {
-        List<VehicleDto> response = new ArrayList<VehicleDto>();
-        return response;
-    }
+//    public List<VehicleDto> getVehicleByRegistrationNumber(String vehicleRegistrationNumber) {
+//        List<VehicleDto> response = new ArrayList<VehicleDto>();
+//        return response;
+//    }
 
     // utils
-    private String[] getPropertyNames(VehicleDto vehicle, boolean getNull, boolean allValues) {
-        final BeanWrapper src = new BeanWrapperImpl(vehicle);
-        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
-        Set<String> emptyNames = new HashSet<>();
-        if (allValues) {
-            for (java.beans.PropertyDescriptor pd : pds) {
-                emptyNames.add(pd.getName());
-            }
-        } else {
-            if (getNull) {
-                for (java.beans.PropertyDescriptor pd : pds) {
-                    Object srcValue = src.getPropertyValue(pd.getName());
-                    if (srcValue == null)
-                        emptyNames.add(pd.getName());
-                }
-            } else {
-                for (java.beans.PropertyDescriptor pd : pds) {
-                    Object srcValue = src.getPropertyValue(pd.getName());
-                    if (srcValue != null)
-                        emptyNames.add(pd.getName());
-                }
-            }
-        }
-        String[] result = new String[emptyNames.size()];
-        return emptyNames.toArray(result);
-    }
+//    private String[] getPropertyNames(VehicleDto vehicle, boolean getNull, boolean allValues) {
+//        final BeanWrapper src = new BeanWrapperImpl(vehicle);
+//        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+//        Set<String> emptyNames = new HashSet<>();
+//        if (allValues) {
+//            for (java.beans.PropertyDescriptor pd : pds) {
+//                emptyNames.add(pd.getName());
+//            }
+//        } else {
+//            if (getNull) {
+//                for (java.beans.PropertyDescriptor pd : pds) {
+//                    Object srcValue = src.getPropertyValue(pd.getName());
+//                    if (srcValue == null)
+//                        emptyNames.add(pd.getName());
+//                }
+//            } else {
+//                for (java.beans.PropertyDescriptor pd : pds) {
+//                    Object srcValue = src.getPropertyValue(pd.getName());
+//                    if (srcValue != null)
+//                        emptyNames.add(pd.getName());
+//                }
+//            }
+//        }
+//        String[] result = new String[emptyNames.size()];
+//        return emptyNames.toArray(result);
+//    }
 
     private void setVehicleNotNullAttributes(Vehicle source, Vehicle target) {
         if (source.getBrand() != null) {
